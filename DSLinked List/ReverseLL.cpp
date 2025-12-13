@@ -30,6 +30,7 @@ Node* Reverse(Node* head) {
         prev = current;
         current =n;
     }
+    return prev;
 }
 //T(o(n))
 //S(o(1))
