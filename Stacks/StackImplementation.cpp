@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//using array
 class Stack {
     int* arr;
     int nextIndex;
@@ -22,9 +22,16 @@ public:
     }
 
     void push(int val) {
+        //dynamic stack
         if (nextIndex == capacity) {
-            cout << "Stack overflow\n";
-            return;
+            int *newArr = new int[2*capacity];
+            for(int i=0;i<capacity;i++){
+                newArr[i] = arr[i];
+            }
+            delete []arr;
+            arr = newArr;
+            capacity = 2*capacity;
+
         }
         arr[nextIndex++] = val;
     }
