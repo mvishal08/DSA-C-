@@ -1,74 +1,77 @@
-#include <bits/stdc++.h>
+#include<iostream>
 using namespace std;
-//using array
-class Stack {
-    int* arr;
-    int nextIndex;
-    int capacity;
 
-public:
-    Stack(int cap = 10) {
-        capacity = cap;
-        arr = new int[capacity];
-        nextIndex = 0;
-    }
+template<typename T>
+class Stack{
+   T *arr;
+   int nextIndex;
+   int capacity;
 
-    int size() {
-        return nextIndex;
-    }
-
-    bool isEmpty() {
-        return nextIndex == 0;
-    }
-
-    void push(int val) {
-        //dynamic stack
-        if (nextIndex == capacity) {
-            int *newArr = new int[2*capacity];
+   public:
+       Stack(){
+          capacity = 4;
+          arr = new T[capacity];
+          nextIndex = 0;
+       }
+       /// return no of elements present in stack
+       int size(){
+          return nextIndex;
+       }
+       bool isEmpty(){
+         /*if(nextIndex==0){
+            return true;
+         }else{
+            return false;
+         }*/
+         return nextIndex==0;
+       }
+       void push(T ele){
+          if(nextIndex==capacity){
+            T *newArr = new T[2*capacity];
             for(int i=0;i<capacity;i++){
                 newArr[i] = arr[i];
             }
             delete []arr;
             arr = newArr;
             capacity = 2*capacity;
-
-        }
-        arr[nextIndex++] = val;
-    }
-
-    void pop() {
-        if (isEmpty()) {
-            cout << "Stack underflow\n";
+          }
+          arr[nextIndex] = ele;
+          nextIndex++;
+       }
+       void pop(){
+          if(isEmpty()){
+            cout<<"Stack empty"<<endl;
             return;
-        }
-        nextIndex--;
-    }
-
-    int top() {
-        if (isEmpty()) {
-            cout << "Stack is empty\n";
-            return -1;
-        }
-        return arr[nextIndex - 1];
-    }
-
-    ~Stack() {
-        delete[] arr;
-    }
+          }
+          nextIndex--;
+       }
+       T top(){
+         if(isEmpty()){
+            cout<<"Stack empty"<<endl;
+            return 0;
+          }
+         return arr[nextIndex-1];
+       }
 };
 
-int main() {
-    Stack s(5);
+int main(){
+  Stack<char> s;
+  s.push(100);
+  s.push(101);
+  s.push(102);
+  s.push(103);
+  s.push(104);
 
-    s.push(10);
-    s.push(20);
-    s.push(30);
+  cout<<s.top()<<endl;
+  s.pop();
 
-    cout << s.top() << endl;   // 30
-    s.pop();
-    cout << s.top() << endl;   // 20
+  cout<<s.top()<<endl;
+  s.pop();
 
-    cout << s.size() << endl;  // 2
+  cout<<s.top()<<endl;
+  s.pop();
 
-    return 0;
+  cout<<s.size()<<endl;
+  cout<<s.isEmpty()<<endl;
+  return 0;
 }
